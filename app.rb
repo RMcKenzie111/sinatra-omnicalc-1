@@ -31,8 +31,24 @@ get("/square_root/results") do
   
 end
 
-get("random/new") do
+get("/payment/new") do
+  erb(:payment_new)
 end
 
-get("payment/new") do
+get("/payment/results") do
+  @apr = params.fetch("apr").to_f
+  @years = params.fetch("years").to_i
+  @user_principal = params.fetch("user_principal").to_f
+  # calculater payment
+  rate = @apr/1200 
+  monthly_per = @years * 12 
+  #numer = rate * balance
+  d = 1 - (1 + rate)
+  n = @years
+  payment = (rate * @user_principal) / (1 - (1 + rate)** -n)
+  @payment = payment.to_fs(:currency, { :precision => 2 })
+  erb(:payment_results)
+end
+
+get("random/new") do
 end
