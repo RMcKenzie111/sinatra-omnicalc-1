@@ -8,16 +8,15 @@ get("/") do
   "
 end
 
-get("square/new") do
-  #If I visit the path /square/new, I should see a form with a label and an input to enter a number.
-  #@user_number
-  #@squared_number = @user_number * user_number
-  #If I submit that form, I should see the square of the number that I entered.
-
+get("/square/new") do
   erb(:square_new)
 end
-get("squaare/result") do
+get("/square/results") do
+  @user_number = params.fetch("user_number").to_i
+  @squared = @user_number.to_f**2
 #for square
+  
+  erb(:square_result)
   
 end
 
