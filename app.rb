@@ -12,7 +12,7 @@ get("/square/new") do
   erb(:square_new)
 end
 get("/square/results") do
-  @user_number = params.fetch("number").to_i
+  @user_number = params.fetch("number").to_f
   @squared = @user_number.to_f**2
   
   erb(:square_result)
@@ -24,7 +24,7 @@ get("/square_root/new") do
 end
 
 get("/square_root/results") do
-  @number_input = params.fetch("user_number").to_i
+  @number_input = params.fetch("user_number").to_f
   @square_root = Math.sqrt(@number_input).to_f
   
   erb(:square_root_results)
@@ -37,16 +37,23 @@ end
 
 get("/payment/results") do
   @apr = params.fetch("apr").to_f
+  @apr_percent = @apr.to_fs(:percentage, { :precision => 4 } ) 
   @years = params.fetch("years").to_i
   @user_principal = params.fetch("user_principal").to_f
+  @principal_am = @user_principal.to_fs(:currency, { :precision => 2 })
+  
+
   # calculater payment
   rate = @apr/1200 
   monthly_per = @years * 12 
   #numer = rate * balance
-  d = 1 - (1 + rate)
-  n = @years
-  payment = (rate * @user_principal) / (1 - (1 + rate)** -n)
+  
+  n = rate * @user_principal
+  d = 1 - (1 + rate)** -monthly_per
+  payment =  n / d 
   @payment = payment.to_fs(:currency, { :precision => 2 })
+
+ 
   erb(:payment_results)
 end
 

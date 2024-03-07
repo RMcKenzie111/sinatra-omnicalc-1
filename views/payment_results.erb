@@ -6,17 +6,19 @@
 
 <body>
   
-  <h1>Square Root Results</h1>
+  <h1>Payment Results</h1>
  
   <dl>
     <dt>APR</dt>
-    <dd><%= @apr %></dd>
+    <dd><%= @apr_percent %></dd>
     <dt>Number of Years</dt>
     <dd><%= @years %></dd>
     <dt>Principal</dt>
-    <dd><%= @user_principal %></dd>
+    <dd><%= @principal_am %></dd>
     <dt>Payment</dt>
     <dd><%= @payment %></dd>
+    <dd><%= @rate %></dd>
+    <dd><%= @monthly_per %></dd>
   </dl>
 
   <a href="/payment/new">Calculate another payment</a>
